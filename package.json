@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "main": "dist/main.js",
+  "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "scripts": {
     "dev": "vite",
@@ -15,9 +16,13 @@
   "files": [
     "dist"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./main.css": "./dist/assets/main.css"
+  },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

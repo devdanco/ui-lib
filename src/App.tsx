@@ -1,4 +1,4 @@
-import "../dist/assets/vite-ui-lib.css";
+import "../dist/assets/main.css";
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
