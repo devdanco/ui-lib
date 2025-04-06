@@ -1,6 +1,7 @@
-import { dirname, resolve, relative, extname } from "node:path";
+import { dirname, resolve, relative, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import dts from "vite-plugin-dts";
+import { externalizeDeps } from 'vite-plugin-externalize-deps'
 import { glob } from "glob";
 
 import { defineConfig } from "vite";
@@ -16,12 +17,21 @@ export default defineConfig({
       tsconfigPath: resolve(__dirname, "tsconfig.lib.json"),
       rollupTypes: true,
     }),
+    externalizeDeps({
+      deps: true,
+      devDeps: false,
+      except: [],
+      include: ["react/jsx-runtime"],
+      nodeBuiltins: true,
+      optionalDeps: true,
+      peerDeps: true,
+      useFile: join(process.cwd(), 'package.json'),
+    })
   ],
   build: {
     copyPublicDir: false,
     emptyOutDir: true,
     rollupOptions: {
-      external: ["react", "react/jsx-runtime", "react-dom"],
       input: Object.fromEntries(
         // https://rollupjs.org/configuration-options/#input
         glob
